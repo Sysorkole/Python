@@ -1,80 +1,56 @@
 """ Código Baralho """
-        
 
+
+# Classe Carta 
 class Carta:
+    # Inicializando com o valor(int) da carta e o naipe(string)
     def __init__(self, valor, naipe):
         self.valor = valor
         self.naipe = naipe
     
-      
+    # Função que mostra a carta na versão que conhecemos  
     def mostrar_carta(self):
-        print(str(self.valor) + self.naipe)
-    
-    
-
-def inicializar(contador):
-    if contador < 13:
-        return carta(contador+1,"♥")
-    elif contador < 26:
-        return carta(contador-12,"♣")
-    elif contador < 39:
-        return carta(contador-25,"♠")
-    elif contador < 52:
-        return carta(contador-38,"♦")
-    else:
-        print("Erro de Contador")
+        if(self.valor == 1):
+            print("A" + self.naipe)
+        elif(self.valor == 11):
+            print("J" + self.naipe)
+        elif(self.valor == 12):
+            print("Q" + self.naipe)
+        elif(self.valor == 13):
+            print("K" + self.naipe)
+        else:
+            print(str(self.valor) + self.naipe)
         
-
-
-for contador in range(52):
-    baralho[contador] = inicializar(contador)
-
-
     
     
     
-    """
-    if contador < 9:
-        return str(contador) + "♥"
-    elif contador = 9:
-        return "J♥"    
-    elif contador = 10:
-        return "Q♥"
-    elif contador = 11:
-        return "K♥"
-    elif contador = 12:
-        return "A♥"
-    elif contador < 22
-        return str(contador) + "♣"
-    elif contador = 22:
-        return "J♣"
-    elif contador = 23:
-        return "Q♣"
-    elif contador = 24:
-        return "K♣"
-    elif contador = 25:
-        return "A♣"
-    elif contador < 35
-        return str(contador) + "♠"
-    elif contador = 35:
-        return "J♠"
-    elif contador = 36:
-        return "Q♠"
-    elif contador = 37:
-        return "K♠"
-    elif contador = 38:
-        return "A♠"
-    elif contador < 49
-        return str(contador) + "♦"
-    elif contador = 48:
-        return "J♦"
-    elif contador = 49:
-        return "Q♦"
-    elif contador = 50:
-        return "K♦"
-    elif contador = 51:
-        return "A♦"
+# Função pra definir cada carta
+def set_cartas(contador):
+    if contador < 13:
+        cartinha = Carta(contador+1,"♥")
+        return cartinha
+    elif contador < 26:
+        cartinha = Carta(contador-12,"♣")
+        return cartinha
+    elif contador < 39:
+        cartinha = Carta(contador-25,"♠")
+        return cartinha
+    elif contador < 52:
+        cartinha = Carta(contador-38,"♦")
+        return cartinha
     else:
-    """
+        print("Erro")
+    
+
+# Função para inicializar o baralho
+def set_baralho():
+    baralho = []
+    for contador in range(52):
+        cartinha = set_cartas(contador)
+        baralho.append(cartinha)
+    return baralho
+    
 
 
+baralho = []
+baralho = set_baralho()

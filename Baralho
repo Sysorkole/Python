@@ -1,15 +1,40 @@
-""" Código Baralho """
+# Código para uso Criação de Cartas de baralho e um Baralho
 
+import random
 
-# Classe Carta 
+# ----------------------- Classe Carta -------------------------
 class Carta:
-    # Inicializando com o valor(int) da carta e o naipe(string)
-    def __init__(self, valor, naipe):
+    
+    # Inicializando com a carta com valor e naipe NULL
+    def __init__(self):
+        self.valor = None
+        self.naipe = None
+    
+    # Define a carta pelo valor e naipe dado    
+    def set_carta(self, valor, naipe):
         self.valor = valor
         self.naipe = naipe
+        
+    # Define a carta através de uma valor de 0 a 51
+    def set_carta(self,contador):
+        if contador < 13:
+            self.valor = contador+1
+            self.naipe = "♥"
+        elif contador < 26:
+            self.valor = contador-12
+            self.naipe = "♣"
+        elif contador < 39:
+            self.valor = contador-25
+            self.naipe = "♠"
+        elif contador < 52:
+            self.valor = contador-38
+            self.naipe = "♦"
+        else:
+            print("Erro")
+    
     
     # Função que mostra a carta na versão que conhecemos  
-    def mostrar_carta(self):
+    def show_carta(self):
         if(self.valor == 1):
             print("A" + self.naipe)
         elif(self.valor == 11):
@@ -20,37 +45,61 @@ class Carta:
             print("K" + self.naipe)
         else:
             print(str(self.valor) + self.naipe)
+            
+    
+
+   
+    
+# ----------------------- Classe Baralho -----------------------------------
+class Baralho:
+    
+    # Inicializando o Baralho Vazio
+    def __init__(self):
+        self.baralho = []
+        self.quantidade_cartas = 0
+    
+    # Adiciona as Cartas ao Baralho    
+    def set_baralho(self):
+        for contador in range(52):
+            carta = Carta()
+            carta.set_carta(contador)
+            self.baralho.append(carta)
+            self.quantidade_cartas += 1
+            
+        
+    # Mostra a Carta no determinado Indice
+    def show_carta(self,indice):
+        self.baralho[indice].show_carta()
+    
+    # Mostra as cartas no baralho
+    def show_baralho(self):
+        for contador in range(self.quantidade_cartas):
+            self.baralho[contador].show_carta()
+    
+    # Embaralha o Baralho
+    def shuffle_baralho(self):
+        for vezes in range(3):
+            for contador in range(self.quantidade_cartas):
+                carta = Carta()
+                troca = random.randrange(0,self.quantidade_cartas-1)
+                carta = self.baralho[contador]
+                self.baralho[contador] = self.baralho[troca]
+                self.baralho[troca] = carta
         
     
     
+    # Saca a ultima carta do baralho
+    def draw_carta(self):
+        self.quantidade_cartas -= 1
+        return self.baralho.pop()
     
-# Função pra definir cada carta
-def set_cartas(contador):
-    if contador < 13:
-        cartinha = Carta(contador+1,"♥")
-        return cartinha
-    elif contador < 26:
-        cartinha = Carta(contador-12,"♣")
-        return cartinha
-    elif contador < 39:
-        cartinha = Carta(contador-25,"♠")
-        return cartinha
-    elif contador < 52:
-        cartinha = Carta(contador-38,"♦")
-        return cartinha
-    else:
-        print("Erro")
     
+# ------------------------- Execução do Main ------------------------------
 
-# Função para inicializar o baralho
-def set_baralho():
-    baralho = []
-    for contador in range(52):
-        cartinha = set_cartas(contador)
-        baralho.append(cartinha)
-    return baralho
-    
-
-
-baralho = []
-baralho = set_baralho()
+baralho = Baralho() # Inicializa um Baralho Vazio
+baralho.set_baralho() # Adiciona as Cartas ao Baralho
+baralho.shuffle_baralho() # Embaralha o Baralho
+baralho.show_baralho() # Mostra o Baralho
+carta_atual = Carta()
+carta_atual = baralho.draw_carta() # Saca uma Carta do Baralho
+carta_atual.show_carta()

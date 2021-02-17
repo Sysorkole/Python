@@ -1,19 +1,21 @@
 """ Essa é um mini projeto de rede social baseada em posts """
-
+from time import localtime, strftime
 
 # --------------------- Classe responsavél pelas mensagens -------------------
 class Message:
     def __init__(self, username, mensagem):
-        self.data= strftime("%d/%m/%Y %H:%M:%S", localtime())
+        self.data = strftime("%d/%m/%Y %H:%M:%S", localtime())
         self.username = username
         self.mensagem = mensagem
     
 
 # --------------------- Classe responsavél pelos usuários -------------------
 class User:
-    def __init__(self, username, nome):
+    def __init__(self, username, nome, email, idade):
         self.username = username
         self.nome = nome
+        self.email = email
+        self.idade = idade
         self.mensagens = []
     
     def ver_Mensagens(self):
@@ -21,13 +23,29 @@ class User:
         for contador in range(len(self.mensagens)):
             print("Mensagem n° " + str(contador+1) + ": " + self.mensagens[contador].mensagem)
             print("Data: " + self.mensagens[contador].data)
-        
+            
+    
+    def ver_Email(self):
+        print("Seu email é: " + self.email)
+        return self.email
+    
+    def ver_Idade(self):
+        print("Sua idade é: " + self.idade)
+        return self.idade
+    
+    def ver_Nome(self):
+        print("Seu nome é: " + self.nome)
+        return self.nome
+    
+    def ver_Username(self):
+        print("Seu username é: " + self.username)
+        return self.username
 
 # --------------------- Funções --------------------------------------------
 
 # Cria conta para o usuário
-def criar_Conta(username, nome):
-    usuario = User(username, nome)
+def criar_Conta(username, nome, email, idade):
+    usuario = User(username, nome, email, idade)
     return usuario
 
 # Cria mensagem para o usuário atual
@@ -39,11 +57,19 @@ def criar_Mensagem(user, mensagem):
 # Vê a Mensagem atual    
 def ver_Mensagem(mensagem):
     print("Usuário: " + str(mensagem.username) + "\n" + "Mensagem: " + mensagem.mensagem + "\n" + "Data: " + mensagem.data)
-    
+
+# Registra uma conta    
+def registrar_Conta():
+    nome = input("Informe seu nome: ")
+    username = input("Informe seu username: ")
+    email = input("Informe seu email: ")
+    idade = int(input("Informe sua idade: "))
+    user = criar_Conta(username, nome, email, idade)
+    return user
 
 # -------------------- Execução do Código --------------------------------------------
 
-user = criar_Conta("Sysorkole", "Arthur") # Cria conta passando Username e Nome
+user = registrar_Conta() # Cria conta
 mensagem = criar_Mensagem(user, "Olá galera, sejam bem vindos!") # Cria a mensagem passando o Usuario e a Mensagem
 mensagem2 = criar_Mensagem(user, "Esse é meu segundo post!")
 ver_Mensagem(mensagem) # Vê a mensagem, user e data da mensagem que está passando por parametro
